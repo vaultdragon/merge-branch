@@ -11,7 +11,11 @@ Octokit.configure do |c|
   c.api_endpoint = ENV['GITHUB_API_URL']
 end
 
-puts File.read(ENV['GITHUB_EVENT_PATH']
+#ENV['GITHUB_EVENT_PATH'] = '{}'
+#ENV['INPUT_FROM_BRANCH'] = 'master'
+#ENV['GITHUB_REPOSITORY'] = 'vaultdragon/testing'
+
+puts File.read(ENV['GITHUB_EVENT_PATH'])
 puts ENV.inspect
 
 @event = JSON.parse(File.read(ENV['GITHUB_EVENT_PATH']))
