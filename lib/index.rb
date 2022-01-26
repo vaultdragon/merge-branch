@@ -32,9 +32,11 @@ puts service.inspect
 
 if service.valid?
   @client = Octokit::Client.new(access_token: @github_token)
-  #puts "Running perform merge target_branch: #{inputs[:target_branch]} @head_to_merge: #{@head_to_merge}}"
+  puts "Running perform merge target_branch: #{inputs[:target_branch]} @head_to_merge: #{@head_to_merge}}"
 
-#  comparison = @client.compare(@repository, inputs[:target_branch], @head_to_merge)
+  comparison = @client.compare(@repository, inputs[:target_branch], @head_to_merge)
+
+  puts comparison.inspect
 
  # @client.merge(@repository, inputs[:target_branch], @head_to_merge, ENV['INPUT_MESSAGE'] ? {commit_message: ENV['INPUT_MESSAGE']} : {})
   puts "Completed: Finish merge branch #{@head_to_merge} to #{inputs[:target_branch]}"
