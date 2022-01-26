@@ -11,10 +11,6 @@ Octokit.configure do |c|
   c.api_endpoint = ENV['GITHUB_API_URL']
 end
 
-#ENV['GITHUB_EVENT_PATH'] = '{}'
-#ENV['INPUT_FROM_BRANCH'] = 'master'
-#ENV['GITHUB_REPOSITORY'] = 'vaultdragon/testing'
-
 puts File.read(ENV['GITHUB_EVENT_PATH'])
 puts ENV.inspect
 
@@ -32,6 +28,7 @@ inputs = {
 MergeBrachService.validate_inputs!(inputs)
 service = MergeBrachService.new(inputs, @event)
 
+puts service.inspect
 
 if service.valid?
   @client = Octokit::Client.new(access_token: @github_token)
