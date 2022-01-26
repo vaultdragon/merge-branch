@@ -29,14 +29,12 @@ if service.valid?
   @client = Octokit::Client.new(access_token: @github_token)
   puts "Running perform merge target_branch: #{inputs[:target_branch]} @head_to_merge: #{@head_to_merge}}"
 
-  puts ENV.inspect
-
   comparison = @client.compare(@repository, inputs[:target_branch], @head_to_merge)
   puts comparison.status
   puts comparison.files.length()
   puts comparison.files.inspect
 
-  if comparison.status == 'identical' && disable_fastforwards == true
+  if comparison.status == 'identical' && presence(ENV['INPUT_DISABLE_FASTFORWARDS']) && ENV['INPUT_DISABLE_FASTFORWARDS'] == "true"
     puts "Disabled: Not merging branch #{@head_to_merge} to #{inputs[:target_branch]} as file changes are identical"
   else
  # @client.merge(@repository, inputs[:target_branch], @head_to_merge, ENV['INPUT_MESSAGE'] ? {commit_message: ENV['INPUT_MESSAGE']} : {})
