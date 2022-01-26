@@ -36,7 +36,14 @@ if service.valid?
 
   comparison = @client.compare(@repository, inputs[:target_branch], @head_to_merge)
 
-  puts comparison.inspect
+  #if comparison.status == 'diverged'
+#
+ # end
+
+  puts comparison.status
+  puts comparison.files.length()
+  puts comparison.files.inspect
+
 
  # @client.merge(@repository, inputs[:target_branch], @head_to_merge, ENV['INPUT_MESSAGE'] ? {commit_message: ENV['INPUT_MESSAGE']} : {})
   puts "Completed: Finish merge branch #{@head_to_merge} to #{inputs[:target_branch]}"
