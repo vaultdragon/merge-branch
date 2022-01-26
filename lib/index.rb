@@ -11,9 +11,6 @@ Octokit.configure do |c|
   c.api_endpoint = ENV['GITHUB_API_URL']
 end
 
-puts File.read(ENV['GITHUB_EVENT_PATH'])
-puts ENV.inspect
-
 @event = JSON.parse(File.read(ENV['GITHUB_EVENT_PATH']))
 @head_to_merge = presence(ENV['INPUT_HEAD_TO_MERGE']) || presence(ENV['INPUT_FROM_BRANCH']) || presence(ENV['GITHUB_SHA']) # or brach name
 @repository = ENV['GITHUB_REPOSITORY']
@@ -27,8 +24,6 @@ inputs = {
 
 MergeBrachService.validate_inputs!(inputs)
 service = MergeBrachService.new(inputs, @event)
-
-puts service.inspect
 
 if service.valid?
   @client = Octokit::Client.new(access_token: @github_token)
